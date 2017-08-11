@@ -46,6 +46,9 @@ var arr = fastextend.clone([
 	{ foo : "fooValue2" },
 	{ foo : "fooValue3", arr2 : [1,2,3] }
 ]);
+
+// customize behavior
+var obj = fastextend.mergeWithOptions({ foo : [{ foo : "fooValue" }] }, { foo : [{ bar : "barValue" }] }, { mergeArrays : false });
 ```
 
 ## fastextend.clone(obj)
@@ -64,7 +67,7 @@ var foo = fastextend.clone([{ foo : 1 }, { foo : 2 }, { foo : 3 }]);
 
 ## fastextend.merge(target, arg1, arg2, argN);
 
-Clones of each argument are merged into the target object. No interim objects/arrays are modified.
+Clones of each argument are merged into the target object.
 
 ### Caveats
 
@@ -96,7 +99,7 @@ fastextend.merge({ foo : "fooValue" }, { foo : undefined })
 
 ## fastextend.mergeWithOptions(target, arg1, arg2, argN, options);
 
-Merge but with the latest argument being `options`.
+Merge but with the last argument being `options`.
 
 1. `options.mergeUndefined` - Default `true`. If true, merges will copy undefined values right to left. So an undefined value will overwrite a value. If set to false, undefined values will not merge.
 1. `options.mergeArrays` - Default `true`. If true, it will recurse into arrays and merge keys into those arrays. If false, it treats arrays as simple key, and will only deep clone the right key, but will not merge entries with the left key. In some cases it is desirable that if an array exists in the right key that it simply replaces the array on the left, rather than blends. Setting this to false will accomplish that.
